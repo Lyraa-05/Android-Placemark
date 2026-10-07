@@ -1,32 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+    android:id="@+id/mainMenu"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".MarkListActivity">
+    android:orientation="vertical">
 
     <TextView
-        android:id="@+id/marksTitle"
+        android:id="@+id/mainTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:text="Placed Marks"
+        android:text="Placemark App"
         android:textAlignment="center"
         android:textSize="28sp"
         android:textStyle="bold" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/marksRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
-
     <Button
-        android:id="@+id/returnButton"
+        android:id="@+id/viewMarksButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Back to menu" />
+        android:layout_marginTop="24dp"
+        android:text="View Marks" />
 
+    <Button
+        android:id="@+id/addMarkButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Add Mark" />
 </LinearLayout>
