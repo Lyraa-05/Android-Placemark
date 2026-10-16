@@ -7,6 +7,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import org.setu.placemarklab2.models.PlacemarkModel
+import timber.log.Timber
 
 class AddEditActivity : AppCompatActivity() {
 
@@ -45,11 +46,12 @@ class AddEditActivity : AppCompatActivity() {
                 .takeIf { it != -1L }
 
         if (editingId != null) {
-
+            Timber.i("Form opened in EDIT mode for ID: $editingId")
             findViewById<TextView>(R.id.formTitle)
                 .text = "Edit Mark"
-
             loadExistingMark(editingId!!)
+        } else {
+            Timber.i("Form opened in CREATE mode")
         }
 
         saveButton.setOnClickListener {
@@ -123,6 +125,7 @@ class AddEditActivity : AppCompatActivity() {
             )
 
             AppData.placedMarks.create(mark)
+            Timber.i("Created new mark: $mark")
 
             Toast.makeText(
                 this,
@@ -141,7 +144,7 @@ class AddEditActivity : AppCompatActivity() {
             )
 
             AppData.placedMarks.update(mark)
-
+            Timber.i("Updated mark: $mark")
             Toast.makeText(
                 this,
                 "Mark updated",
