@@ -1,9 +1,11 @@
 package org.setu.placemarklab2
 
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import org.setu.placemarklab2.models.PlacemarkModel
@@ -26,6 +28,9 @@ class PlacedMarkAdapter(
 
         val coordinatesText: TextView =
             itemView.findViewById(R.id.coordinatesText)
+
+        val markImage: ImageView =
+            itemView.findViewById(R.id.markImage)
     }
 
     override fun onCreateViewHolder(
@@ -59,6 +64,15 @@ class PlacedMarkAdapter(
         holder.coordinatesText.text =
             "X: ${mark.x}, Y: ${mark.y}"
 
+        val imageUri = mark.imageUri?.let { Uri.parse(it) }
+
+        if (imageUri != null) {
+            holder.markImage.setImageURI(imageUri)
+        } else {
+            holder.markImage.setImageResource(
+                android.R.drawable.ic_menu_gallery
+            )
+        }
 
         holder.itemView.setOnClickListener {
             listener.onMarkClick(mark)
