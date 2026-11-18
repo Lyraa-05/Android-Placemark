@@ -85,7 +85,7 @@ class MapPickerActivity : AppCompatActivity() {
     }
 
     private fun showExistingMarkers() {
-        val placemarks = AppData.placedMarks.findAll()
+        val placemarks = AppData.placedMarkList.findAll()
 
         placemarks.forEach { placemark ->
             val point = GeoPoint(

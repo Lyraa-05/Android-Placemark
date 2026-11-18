@@ -127,7 +127,7 @@ class AddEditActivity : AppCompatActivity() {
     private fun loadExistingMark(id: Long) {
 
         val mark =
-            AppData.placedMarks.findOne(id)
+            AppData.placedMarkList.findOne(id)
 
         if (mark == null) {
 
@@ -196,7 +196,7 @@ class AddEditActivity : AppCompatActivity() {
                 )
 
                 mark.validate()
-                AppData.placedMarks.create(mark)
+                AppData.placedMarkList.create(mark)
                 Timber.i("Created new mark: $mark")
 
                 Toast.makeText(
@@ -217,7 +217,7 @@ class AddEditActivity : AppCompatActivity() {
                 )
 
                 mark.validate()
-                AppData.placedMarks.update(mark)
+                AppData.placedMarkList.update(mark)
                 Timber.i("Updated mark: $mark")
                 Toast.makeText(
                     this,
