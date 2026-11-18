@@ -27,6 +27,12 @@
             android:name=".MarkListActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".MapPickerActivity"
+            android:exported="false"
+            />
     </application>
+    <uses-permission android:name="android.permission.INTERNET" />
+
 
 </manifest>
