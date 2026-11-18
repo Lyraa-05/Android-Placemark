@@ -26,7 +26,7 @@ class MarkListActivity : AppCompatActivity() {
 
         adapter = PlacedMarkAdapter(
 
-            marks = AppData.placedMarks.findAll(),
+            marks = AppData.placedMarkList.findAll(),
 
             listener = object : OnMarkListener {
 
@@ -67,7 +67,7 @@ class MarkListActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         if (::adapter.isInitialized) {
-            val marks = AppData.placedMarks.findAll()
+            val marks = AppData.placedMarkList.findAll()
             Timber.i("Refreshing mark list, found ${marks.size} items")
             adapter.updateMarks(marks)
         }
@@ -89,8 +89,8 @@ class MarkListActivity : AppCompatActivity() {
             .setTitle("Delete Mark")
             .setMessage("Are you sure you want to delete '${mark.title}'?")
             .setPositiveButton("Delete") { dialog, _ ->
-                AppData.placedMarks.delete(mark.id)
-                adapter.updateMarks(AppData.placedMarks.findAll())
+                AppData.placedMarkList.delete(mark.id)
+                adapter.updateMarks(AppData.placedMarkList.findAll())
                 dialog.dismiss()
             }
             .setNegativeButton("Cancel") { dialog, _ ->
