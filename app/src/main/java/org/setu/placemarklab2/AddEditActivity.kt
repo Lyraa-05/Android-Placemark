@@ -1,5 +1,6 @@
 package org.setu.placemarklab2
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -11,6 +12,7 @@ import timber.log.Timber
 import android.net.Uri
 import android.widget.ImageView
 import androidx.activity.result.contract.ActivityResultContracts
+import kotlin.jvm.java
 
 
 class AddEditActivity : AppCompatActivity() {
@@ -24,6 +26,9 @@ class AddEditActivity : AppCompatActivity() {
 
     private lateinit var imagePreview: ImageView
     private var selectedImageUri: Uri? = null
+
+    private var selectedLatitude: Double? = null
+    private var selectedLongitude: Double? = null
 
     private val imagePicker =
         registerForActivityResult(ActivityResultContracts.OpenDocument()) { uri: Uri? ->
@@ -72,6 +77,25 @@ class AddEditActivity : AppCompatActivity() {
         val cancelButton =
             findViewById<Button>(R.id.cancelButton)
 
+        val mapPicker =
+            registerForActivityResult(
+                ActivityResultContracts.StartActivityForResult()
+            ) { result ->
+                if (result.resultCode == RESULT_OK) {
+                    val data = result.data ?: return@registerForActivityResult
+                    selectedLatitude = data.getDoubleExtra("latitude", 0.0)
+                    selectedLongitude = data.getDoubleExtra("longitude", 0.0)
+
+                    selectedLatitude?.let {
+                        xInput.setText(it.toString())
+                    }
+
+                    selectedLongitude?.let {
+                        yInput.setText(it.toString())
+                    }
+                }
+            }
+
         editingId =
             intent.getLongExtra("id", -1L)
                 .takeIf { it != -1L }
@@ -92,6 +116,12 @@ class AddEditActivity : AppCompatActivity() {
         cancelButton.setOnClickListener {
             finish()
         }
+
+        findViewById<Button>(R.id.buttonLoc).setOnClickListener {
+            val intent = Intent(this, MapPickerActivity::class.java)
+            mapPicker.launch(intent)
+        }
+
     }
 
     private fun loadExistingMark(id: Long) {
